@@ -1,0 +1,14 @@
+{
+    "name": "ramsalt/oauth2-bankid",
+    "description": "BankID OAuth 2.0 Client Provider for The PHP League OAuth2-Client",
+    "license": "GPL-3.0-or-later",
+    "authors": [
+        {
+            "name": "Marlon Saglia",
+            "email": "marlon@ramsalt.com"
+        }
+    ],
+    "require": {
+        "league/oauth2-client": "^2.4"
+    }
+}
