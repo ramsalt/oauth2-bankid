@@ -67,6 +67,23 @@ class BankIdProvider extends GenericProvider {
   /**
    * @inheritDoc
    */
+  public function getResourceOwner(LeagueAccessToken $token): BankIdUser {
+    $response = $this->fetchResourceOwnerDetails($token);
+    return $this->createResourceOwner($response, $token);
+  }
+
+
+  /**
+   * @inheritDoc
+   */
+  protected function createResourceOwner(array $response, LeagueAccessToken $token): BankIdUser {
+    return new BankIdUser($response);
+  }
+
+
+  /**
+   * @inheritDoc
+   */
   protected function parseResponse(ResponseInterface $response) {
     $content = (string) $response->getBody();
     $type = $this->getContentType($response);
@@ -88,5 +105,4 @@ class BankIdProvider extends GenericProvider {
   protected function getScopeSeparator() {
     return ' ';
   }
-
 }

@@ -24,11 +24,8 @@ class AccessToken extends LeagueAccessToken {
   }
 
 
-  public function getIdToken(): ?IdToken {
-    if (!isset($this->values['id_token'])) {
-      return NULL;
-    }
-    if (!isset($this->values['id_token_decoded'])) {
+  public function getIdToken(): IdToken {
+    if (!isset($this->values['id_token_decoded']) && isset($this->values['id_token'])) {
       $decoded_token = JWT::decodeForBankId(
         $this->values['id_token'],
         $this->endpoints
@@ -36,7 +33,7 @@ class AccessToken extends LeagueAccessToken {
       $this->values['id_token_decoded'] = new IdToken($decoded_token);
     }
 
-    return $this->values['id_token_decoded'] ?? NULL;
+    return $this->values['id_token_decoded'] ?? new IdToken();
   }
 
 }
