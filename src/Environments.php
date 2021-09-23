@@ -48,8 +48,8 @@ class Environments {
    * @return string
    */
   protected static function getOpenidConfigurationUrl(string $environment): string {
-    $env_prefix = ($environment === self::ENV_PROD) ? '' : "-{$environment}";
-    return "https://oidc{$env_prefix}.bankidapis.no/auth/realms/{$environment}/.well-known/openid-configuration";
+    $env_prefix = ($environment === self::ENV_PROD) ? '' : ".{$environment}";
+    return "https://auth{$env_prefix}.bankid.no/auth/realms/{$environment}/.well-known/openid-configuration";
   }
 
   /**
