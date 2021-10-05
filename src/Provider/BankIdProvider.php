@@ -14,6 +14,15 @@ use Psr\Http\Message\ResponseInterface;
 class BankIdProvider extends GenericProvider {
 
   /**
+   * Allow configuring the JWT leeway time.
+   *
+   * @see \Firebase\JWT\JWT::$leeway
+   *
+   * @var int
+   */
+  protected int $jwtLeeway;
+
+  /**
    * @var \BankID\OAuth2\Client\Endpoints
    */
   protected $endpoints;
@@ -34,6 +43,16 @@ class BankIdProvider extends GenericProvider {
       'endpoints',
     ];
   }
+
+  /**
+   * @inheritDoc
+   */
+  protected function getConfigurableOptions() {
+    return [
+      'jwtLeeway'
+      ] + parent::getConfigurableOptions();
+  }
+
 
   /**
    * @inheritDoc
@@ -90,7 +109,7 @@ class BankIdProvider extends GenericProvider {
 
     // Handle responses which are JWT signed/encoded.
     if (strpos($type, 'application/jwt') !== false) {
-      return JWT::decodeForBankId($content, $this->endpoints);
+      return JWT::decodeForBankId($content, $this->endpoints, $this->jwtLeeway);
     }
 
     // Rewind the body stream.
