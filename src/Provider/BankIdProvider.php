@@ -20,7 +20,7 @@ class BankIdProvider extends GenericProvider {
    *
    * @var int
    */
-  protected int $jwtLeeway;
+  protected ?int $jwtLeeway = NULL;
 
   /**
    * @var \BankID\OAuth2\Client\Endpoints
